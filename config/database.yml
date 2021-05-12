@@ -1,0 +1,17 @@
+efault: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+  host: database
+
+development:
+  url: <%= ENV.fetch("DATABASE_URL") { "postgresql://postgres:@database/playcentre_development" } %>
+
+test: &test
+  <<: *default
+  database: playcentre_test
+
+production:
+  <<: *default
+  database: playcentre

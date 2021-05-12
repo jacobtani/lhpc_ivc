@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+if [ "$RAILS_ENV" == "development" ]; then
+
+  echo "Installing gems"
+  bundle install --jobs=10
+
+  echo "Checking for database connectivity"
+  bin/wait-for-it.sh database:5432
+
+  echo "Creating database"
+  bundle exec rake db:create
+
+  echo "Removing existing server pid"
+  rm -f tmp/pids/server.pid
+fi
+
+echo "Migrating database"
+bundle exec rake db:migrate
+
+echo "Seeding the database"
+bundle exec rake db:seed
+
+echo "Install yarn"
+yarn install
+
+echo "Compile webpacker"
+bundle exec rails webpacker:compile
+
+echo "Starting server"
+bundle exec rails s -p 3000 -b '0.0.0.0'

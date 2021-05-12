@@ -1,0 +1,39 @@
+version: '2'
+services:
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    container_name: playcentre.local
+    environment:
+      - RAILS_ENV=development
+    volumes:
+      - .:/opt/service:cached
+      - bundle-cache:/usr/local/bundle/
+    depends_on:
+      - database
+    command: bin/docker-web
+
+  webpack:
+    build: .
+    command: ./bin/webpack-dev-server
+    volumes:
+      - .:/opt/service:cached
+    ports:
+      - '3035:3000'
+    environment:
+      NODE_ENV: development
+      RAILS_ENV: development
+      WEBPACKER_DEV_SERVER_HOST: 0.0.0.0
+
+  database:
+    container_name: playcentre-database.local
+    image: postgres:12
+    volumes:
+      - postgresql-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+
+volumes:
+  postgresql-data: {}
+  bundle-cache: {}
