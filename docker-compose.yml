@@ -12,6 +12,7 @@ services:
       - bundle-cache:/usr/local/bundle/
     depends_on:
       - database
+      - webpack
     command: bin/docker-web
 
   webpack:
