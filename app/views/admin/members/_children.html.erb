@@ -1,0 +1,28 @@
+
+<div class="container">
+  <div class='page-header'>
+    <h3>Children</h3>
+  </div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">DOB</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <% @children_to_parse = (@children.present? ? @children : locals[:children]) %>
+    <tbody>
+      <% @children_to_parse.each do |child| %>
+        <tr>
+          <td><%= child.first_name %> <%= child.surname %></td>
+          <td><%= child.dob %></td>
+          <td>
+            <%= link_to 'Edit', edit_admin_member_path(:id => child.id), class:"btn btn-primary min-width-btn" %>     
+            <%= link_to 'Delete', admin_member_path(:id => child.id), method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger min-width-btn"%>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

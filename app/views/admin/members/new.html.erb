@@ -1,0 +1,11 @@
+<div class="container">
+  <div class='page-header'>
+    <div class='btn-toolbar float-right'>
+      <div class='btn-group'>
+        <%= link_to 'Back', admin_members_path, class:"btn btn-info min-width-btn" %>
+      </div>
+    </div>
+  </div>
+  <h1>New Member</h1>
+  <%= render 'form', admin_member: @member, url: admin_members_path, method: :post %>
+</div>
