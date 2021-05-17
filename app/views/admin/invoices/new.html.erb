@@ -7,5 +7,5 @@
     </div>
   </div>
   <h1>New Invoice</h1>
-  <%= render 'form', admin_member_invoice: @invoice, url: admin_member_invoices_path(@member), method: :post %>
+  <%= render 'form', admin_member_invoice: @invoice, url: admin_member_invoices_path(member_id: @member.id), method: :post %>
 </div>

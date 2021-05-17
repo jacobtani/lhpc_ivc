@@ -66,6 +66,6 @@ class Admin::InvoicesController < ApplicationController
   end
 
   def invoice_params
-    params.require(:invoice).permit(:id, :member_id, :due_date, :payment_date, :payment_amount, :payment_received).to_h
+    params.require(:invoice).permit(:id, :invoice_number, :invoice_date, :member_id, :due_date, :payment_date, :member_donation, :cleaning_donation, :payment_received).to_h
   end
 end
