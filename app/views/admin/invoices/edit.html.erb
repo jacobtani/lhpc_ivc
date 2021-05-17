@@ -1,0 +1,11 @@
+<div class="container">
+  <div class='page-header'>
+    <div class='btn-toolbar float-right'>
+      <div class='btn-group'>
+        <%= link_to 'Back', admin_member_invoices_path, class:"btn btn-info min-width-btn" %>
+      </div>
+    </div>
+  </div>
+  <h1>Edit Invoice</h1>
+  <%= render 'form', admin_member_invoice: @invoice, url: admin_member_invoice_path(member_id: @member.id, id: @invoice.id), method: :put %>
+</div>

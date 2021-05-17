@@ -1,0 +1,17 @@
+<div class="container">
+  <div class='page-header'>
+    <div class='btn-toolbar float-right'>
+      <div class='btn-group'>
+        <%= link_to 'Back', admin_member_invoices_path, class:"btn btn-info min-width-btn" %>
+      </div>
+    </div>
+  </div>
+  <h1>Invoice Details</h1>
+  <p>Invoice Number: <%= @invoice.invoice_number %></p>
+  <p>Invoice Date: <%= @invoice.invoice_date %></p>
+  <p>Member Donation: <%= @invoice.member_donation %></p>
+  <p>Cleaning Donation: <%= @invoice.cleaning_donation %></p>
+  <p>Due Date: <%= @invoice.due_date %></p>
+  <p>Payment Date: <%= @invoice.payment_date %></p>
+  <p>Payment Received: <%= @invoice.payment_received %></p>
+</div>

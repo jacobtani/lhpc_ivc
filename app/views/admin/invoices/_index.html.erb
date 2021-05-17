@@ -1,0 +1,45 @@
+<div class="container">
+  <div class='page-header'>
+    <div class='btn-toolbar float-right'>
+      <div class='btn-group'>
+      <%= link_to 'New Invoice', new_admin_member_invoice_path(@member), class:"btn btn-success min-width-btn" %>
+      </div>
+    </div>
+    <h1>Invoices</h1>
+  </div>
+  <% @invoices_to_parse = (@invoices.present? ? @invoices : locals[:invoices]) %>
+  <div class="accordion">
+  <table class="table table-striped" id="tableAccordion">
+    <thead>
+      <tr>
+        <th scope="col">Invoice Number</th>
+        <th scope="col">Invoice Date</th>
+        <th scope="col">Member Donation</th>
+        <th scope="col">Cleaning Donation</th>
+        <th scope="col">Due Date</th>
+        <th scope="col">Payment Date</th>
+        <th scope="col">Payment Received</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @invoices_to_parse.each do |invoice| %>
+        <tr>
+          <td><%= invoice.invoice_number %></td>
+          <td><%= invoice.invoice_date.strftime("%d/%m/%Y") %></td>
+          <td><%= number_to_currency(invoice.member_donation) %></td>
+          <td><%= number_to_currency(invoice.cleaning_donation) %></td>
+          <td><%= invoice.due_date.strftime("%d/%m/%Y") %></td>
+          <td><%= invoice.payment_date ? invoice.payment_date.strftime("%d/%m/%Y") : 'N/A' %></td>
+          <td><%= number_to_currency(invoice.payment_received) %></td>
+          <td>
+            <%= link_to 'Show', admin_member_invoice_path(member_id: @member.id, id: invoice.id), class:"btn btn-info min-width-btn"%>
+            <%= link_to 'Delete', admin_member_invoice_path(member_id: @member.id, id: invoice.id), method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger min-width-btn" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  </div>
+  <br>
+</div>

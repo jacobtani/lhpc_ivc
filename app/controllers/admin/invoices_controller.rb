@@ -4,7 +4,7 @@ class Admin::InvoicesController < ApplicationController
   before_action :set_invoice, only: %i[ show edit update destroy ]
 
   def index
-    @invoices = @member.invoices.order('date DESC')
+    @invoices = @member.invoices
   end
 
   def new
@@ -51,6 +51,10 @@ class Admin::InvoicesController < ApplicationController
     end
   end
 
+  def term_invoicing
+    CreateMembersTermInvoicesCommand.new(term_number: params[:term_number], year: params[:year]).call
+  end
+
   private
 
   def set_member
@@ -62,6 +66,6 @@ class Admin::InvoicesController < ApplicationController
   end
 
   def invoice_params
-    params.require(:invoice).permit(:id, :member_id, :due_date, investment_option_id).to_h
+    params.require(:invoice).permit(:id, :member_id, :due_date, :payment_date, :payment_amount, :payment_received).to_h
   end
 end

@@ -10,10 +10,51 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_12_104000) do
+ActiveRecord::Schema.define(version: 2021_05_16_043727) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "invoices", force: :cascade do |t|
+    t.string "invoice_number"
+    t.date "invoice_date"
+    t.date "due_date"
+    t.date "payment_date"
+    t.decimal "member_donation", default: "0.0"
+    t.decimal "cleaning_donation", default: "0.0"
+    t.decimal "payment_received", default: "0.0"
+    t.bigint "member_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["member_id"], name: "index_invoices_on_member_id"
+  end
+
+  create_table "members", force: :cascade do |t|
+    t.integer "parent_id"
+    t.string "family_id", null: false
+    t.string "first_name"
+    t.string "surname"
+    t.date "dob"
+    t.date "date_joined"
+    t.date "date_left"
+    t.string "email"
+    t.string "mobile"
+    t.string "address"
+    t.date "first_aid_expiry"
+    t.string "duty_day"
+    t.boolean "staff"
+    t.boolean "life_member"
+    t.boolean "has_caregiver", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "qualifications", force: :cascade do |t|
+    t.string "name"
+    t.decimal "discount_amount"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
