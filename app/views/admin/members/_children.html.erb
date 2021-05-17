@@ -16,7 +16,7 @@
       <% @children_to_parse.each do |child| %>
         <tr>
           <td><%= child.first_name %> <%= child.surname %></td>
-          <td><%= child.dob %></td>
+          <td><%= child.dob.strftime("%d/%m/%Y") %></td>
           <td>
             <%= link_to 'Edit', edit_admin_member_path(:id => child.id), class:"btn btn-primary min-width-btn" %>     
             <%= link_to 'Delete', admin_member_path(:id => child.id), method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger min-width-btn"%>

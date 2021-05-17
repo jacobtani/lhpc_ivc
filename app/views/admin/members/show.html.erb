@@ -1,16 +1,16 @@
 <div class="container">
+  <div class='page-header'>
+    <div class='btn-toolbar float-right'>
+      <div class='btn-group'>
+        <%= link_to 'Back', admin_members_path, class:"btn btn-info min-width-btn" %>
+      </div>
+    </div>
+  </div>
   <h1>Member Details</h1>
-  <%= link_to 'Back', admin_members_path,class:"btn btn-light min-width-btn" %>
-  <%= form_with(model: @member, url: admin_member_path, local: true) do |form| %>
-    <%= form.label :first_name %>
-    <%= form.text_field :first_name, class: "form-control", readonly: true %>
-    <%= form.label :surname %>
-    <%= form.text_field :surname, class: "form-control", readonly: true %>
-    <%= form.label :dob %>Pc
-    <%= form.date_field :dob, class: "form-control", readonly: true %>
-    <%= form.label :date_joined %>
-    <%= form.date_field :date_joined, class: "form-control", readonly: true %>
-    <%= form.label :date_left %>
-    <%= form.date_field :date_left, class: "form-control", readonly: true %>
-  <% end %>
+  <p>Name: <%= @member.first_name %> <%= @member.surname %></p>
+  <p>DOB: <%= @member.dob %></p>
+  <p>Email: <%= @member.email %></p>
+  <p>Date Joined: <%= @member.date_joined %></p>
+  <p>Date Left: <%= @member.date_left %></p>
+  <%= render "admin/invoices/index", locals: { invoices: @member.invoices } %>
 </div>

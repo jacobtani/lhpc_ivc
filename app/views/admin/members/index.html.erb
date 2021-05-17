@@ -11,9 +11,8 @@
   <table class="table table-striped" id="tableAccordion">
     <thead>
       <tr>
-        <th scope="col">First Name</th>
-        <th scope="col">Surname</th>
-        <th scope="col">DOB</th>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
         <th scope="col">Date Joined</th>
         <th scope="col">Date Left</th>
         <th scope="col">Has Caregiver</th>
@@ -23,12 +22,10 @@
     <tbody>
       <% @members.each do |member| %>
         <tr>
-          <td><%= member.first_name %></td>
-          <td><%= member.surname %></td>
-          <td><%= member.dob %></td>
-          <td><%= member.date_joined %></td>
-          <td><%= member.date_left %></td>
-          <td><%= member.has_caregiver %></td>
+          <td><%= member.first_name %> <%= member.surname %></td>
+          <td><%= member.email %></td>
+          <td><%= member.date_joined.strftime("%d/%m/%Y") %></td>
+          <td><%= member.date_left.present? ? member.date_left.strftime("%d/%m/%Y") : 'N/A' %></td>
           <td>
             <%= link_to 'Edit', edit_admin_member_path(:id => member.id), class:"btn btn-primary min-width-btn"  %>
             <%= link_to 'Show', admin_member_path(member), class:"btn btn-info min-width-btn"%>
