@@ -1,7 +1,24 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+tania_w = Member.find_or_create_by(first_name: 'Tania', surname: 'Walker', family_id: 'WALK123', email: 'tanzjacob@gmail.com', date_joined: Date.new(2020, 9,23), duty_day: 'Friday')
+maria_w = Member.find_or_create_by(first_name: 'Maria', surname: 'Walker', family_id: 'WALK123', dob: Date.new(2019, 9, 7), date_joined: Date.new(2020, 9,23), parent_id: tania_w.id, enrolled_days: ['Tuesday', 'Thursday', 'Friday'])
+rachel_d = Member.find_or_create_by(first_name: 'Rachel', surname: 'Dady', family_id: 'CLAR123', email: 'rachel@gmail.com', date_joined: Date.new(2020, 9,23), duty_day: 'Tuesday')
+felix_c = Member.find_or_create_by(first_name: 'Felix', surname: 'Clark', family_id: 'CLAR123', dob: Date.new(2019, 8, 1), date_joined: Date.new(2020, 9,23), parent_id: rachel_d.id, enrolled_days: ['Tuesday', 'Thursday', 'Friday'])
+kirstyn_t = Member.find_or_create_by(first_name: 'Kirstyn', surname: 'Taljaard', family_id: 'BARN123', email: 'kirstyn@gmail.com', date_joined: Date.new(2018, 9,23), duty_day: 'Friday')
+kassidy_b = Member.find_or_create_by(first_name: 'Kassidy', surname: 'Barnes', family_id: 'BARN123', dob: Date.new(2017, 8, 1), date_joined: Date.new(2018, 9,23), parent_id: kirstyn_t.id, enrolled_days: ['Friday'])
+sue_m = Member.find_or_create_by(first_name: 'Sue', surname: 'Morgan', family_id: 'MORG123', email: 'sue@gmail.com', date_joined: Date.new(2021, 2,23))
+zoe_m = Member.find_or_create_by(first_name: 'Zoe', surname: 'Morgan', family_id: 'MORG123', dob: Date.new(2019, 4, 1), date_joined: Date.new(2021, 2,23), parent_id: sue_m.id, has_caregiver: true, enrolled_days: ['Tuesday', 'Thursday'])
+kate_s = Member.find_or_create_by(first_name: 'Kate', surname: 'Stevens-West', family_id: 'WEST123', email: 'kate@gmail.com', date_joined: Date.new(2018, 9,23), duty_day: 'Thursday')
+henry_w = Member.find_or_create_by(first_name: 'Henry', surname: 'West', family_id: 'WEST123', dob: Date.new(2017, 9, 1), date_joined: Date.new(2018, 9,23), parent_id: kate_s.id, enrolled_days: ['Monday', 'Tuesday', 'Thursday', 'Friday'])
+
+te_manga = Qualification.find_or_create_by(name: 'Te Manga', discount_amount: BigDecimal('5.00'))
+pea = Qualification.find_or_create_by(name: 'PEA', discount_amount: BigDecimal('10.00'))
+te_puna = Qualification.find_or_create_by(name: 'Te Puna', discount_amount: BigDecimal('15.00'))
+
+tania_invoice = Invoice.find_or_create_by(due_date: Date.new(2021, 7, 1), member_donation: BigDecimal('35'), cleaning_donation: BigDecimal('35'), invoice_number: 'INV-0001', invoice_date: Date.new(2021,5,2), member_id: tania_w.id)
+rachel_invoice = Invoice.find_or_create_by(due_date: Date.new(2021, 7, 1), member_donation: BigDecimal('35'), cleaning_donation: BigDecimal('35'), invoice_number: 'INV-0002', invoice_date: Date.new(2021,5,2), member_id: rachel_d.id)
+kate_s_invoice = Invoice.find_or_create_by(due_date: Date.new(2021, 7, 1), member_donation: BigDecimal('25'), cleaning_donation: BigDecimal('35'), invoice_number: 'INV-0003', invoice_date: Date.new(2021,5,2), member_id: kate_s.id)
+sue_m_invoice = Invoice.find_or_create_by(due_date: Date.new(2021, 7, 1), member_donation: BigDecimal('20'), cleaning_donation: BigDecimal('0'), invoice_number: 'INV-0004', invoice_date: Date.new(2021,5,2), member_id: sue_m.id)
+kirstyn_t_invoice = Invoice.find_or_create_by(due_date: Date.new(2021, 7, 1), member_donation: BigDecimal('20'), cleaning_donation: BigDecimal('35'), invoice_number: 'INV-0005', invoice_date: Date.new(2021,5,2), member_id: kirstyn_t.id)
+
+caregiver_fees = FeeStructure.find_or_create_by(base_member_donation: BigDecimal('20'),  caregiver_fees: true)
+multiple_days_enrolment = FeeStructure.find_or_create_by(base_member_donation: BigDecimal('35'),  cleaning_donation: BigDecimal('35'), multiple_enrolled_days: true)
+single_day_enrolment = FeeStructure.find_or_create_by(base_member_donation: BigDecimal('30'),  cleaning_donation: BigDecimal('35'))
