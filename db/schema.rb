@@ -15,6 +15,16 @@ ActiveRecord::Schema.define(version: 2021_05_16_043727) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "fee_structures", force: :cascade do |t|
+    t.decimal "base_member_donation", default: "0.0"
+    t.decimal "cleaning_donation", default: "0.0"
+    t.boolean "caregiver_fees", default: false
+    t.boolean "multiple_enrolled_days", default: false
+    t.date "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "invoice_transitions", force: :cascade do |t|
     t.string "to_state", null: false
     t.json "metadata", default: {}
