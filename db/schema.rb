@@ -15,6 +15,19 @@ ActiveRecord::Schema.define(version: 2021_05_16_043727) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "invoice_transitions", force: :cascade do |t|
+    t.string "to_state", null: false
+    t.json "metadata", default: {}
+    t.integer "sort_key", null: false
+    t.bigint "invoice_id"
+    t.boolean "most_recent", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["invoice_id", "most_recent"], name: "index_invoice_transitions_parent_most_recent", unique: true, where: "most_recent"
+    t.index ["invoice_id", "sort_key"], name: "index_invoice_transitions_parent_sort", unique: true
+    t.index ["invoice_id"], name: "index_invoice_transitions_on_invoice_id"
+  end
+
   create_table "invoices", force: :cascade do |t|
     t.string "invoice_number"
     t.date "invoice_date"
@@ -68,4 +81,5 @@ ActiveRecord::Schema.define(version: 2021_05_16_043727) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "invoice_transitions", "invoices"
 end
