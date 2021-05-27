@@ -3,7 +3,15 @@ class Invoice < ApplicationRecord
   # has_one_attached :attachment
   # before_save :analyze_attachment
   has_many :invoice_transitions, class_name: 'InvoiceTransition', autosave: false, dependent: :destroy
-  uses_state_machine state_machine_class: InvoiceStateMachine, transition_class: InvoiceTransition, association_name: :invoice_transitions
+
+  include Statesman::Adapters::ActiveRecordQueries[
+    transition_class: InvoiceTransition,
+    initial_state: :unpaid
+  ]
+
+  def state_machine
+    @state_machine ||= InvoiceStateMachine.new(self, transition_class: InvoiceTransition)
+  end
 
   def small_image_url
     attachment.variant(resize: '200x113').processed

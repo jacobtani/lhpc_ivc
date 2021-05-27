@@ -1,6 +1,5 @@
 class InvoiceTransition < ApplicationRecord
   belongs_to :invoice, inverse_of: :invoice_transitions
-  validates :to_state, inclusion: { in: OrderStateMachine.states }
 
   after_destroy :update_most_recent, if: :most_recent?
 
